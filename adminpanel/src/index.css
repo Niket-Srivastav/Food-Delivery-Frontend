@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body{
+    /* Remove default margin from the body */
+    margin: 0;
+    /* Remove default padding from the body */
+    padding: 0;
+    /* Set the font family to Poppins, with a fallback to sans-serif */
+    font-family: 'poppins', sans-serif !important;
+    /* Ensure the body takes at least the full height of the viewport */
+    min-height: 100vh;
+}
+/* Wrapper to contain the sidebar and page content */
+#wrapper {
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+  
+/* Sidebar styles */
+#sidebar-wrapper {
+    min-height: 100vh; /* Ensure the sidebar spans the full height of the viewport */
+    margin-left: -15rem; /* Initially hide the sidebar by shifting it left */
+    transition: margin 0.25s ease-out; /* Smooth transition for toggling the sidebar */
+}
+  
+/* Sidebar heading styles */
+#sidebar-wrapper .sidebar-heading {
+    padding: 0.875rem 1.25rem; /* Add padding around the heading */
+    font-size: 1.2rem; /* Set font size for the heading */
+}
+  
+/* Sidebar list group styles */
+#sidebar-wrapper .list-group {
+    width: 15rem; /* Set the width of the sidebar */
+}
+  
+/* Page content wrapper styles */
+#page-content-wrapper {
+    min-width: 100vw; /* Ensure the content spans the full width of the viewport */
+}
+  
+/* Styles for toggling the sidebar */
+body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
+    margin-left: 0; /* Show the sidebar when toggled */
+}
+  
+/* Media query for screens wider than 768px */
+@media (min-width: 768px) {
+    #sidebar-wrapper {
+        margin-left: 0; /* Show the sidebar by default on larger screens */
+    }
+    #page-content-wrapper {
+        min-width: 0; /* Reset minimum width */
+        width: 100%; /* Ensure content spans the full width */
+    }
+    body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
+        margin-left: -15rem; /* Hide the sidebar when toggled */
+    }
+}
