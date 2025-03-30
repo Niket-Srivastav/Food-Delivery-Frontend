@@ -24,3 +24,25 @@ export const addFood = async (foodData,image) => {
         throw error; // Rethrow the error to handle it in the calling function 
     }
 }
+
+export const getFoodList = async () => {
+  try{
+    const response = await axios.get(API_URL);
+    return response.data; // Return the data from the response
+  }
+  catch (error) {
+    console.error("Error fetching food list:", error); 
+    throw error; // Rethrow the error to handle it in the calling function 
+  }
+}
+
+export const deleteFood = async (foodId) => {
+  try{
+    const response = await axios.delete(`${API_URL}/${foodId}`);
+    return (response.status === 204); // Return true if the deletion was successful
+  }
+  catch{
+    console.error("Error deleting food:", error); 
+    throw error; 
+  }
+}

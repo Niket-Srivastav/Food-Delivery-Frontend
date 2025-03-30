@@ -7,20 +7,21 @@ const AddFood = () => {
   const [imagePreview, setImagePreview] = useState(null);
   const [data, setData] = useState({
     name: "",
-    category: "",
+    category: "Biryani",
     price: "",
     description: "",
   });
   const [file,setFile] = useState(null);
 
   const handleImageChange = (e) => {
-    setFile(e.target.files[0]);
-    if (file) {
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
+    if (selectedFile) {
       const reader = new FileReader();
       reader.onload = () => {
         setImagePreview(reader.result); // Set the image preview URL
       };
-      reader.readAsDataURL(file); // Read the file as a data URL
+      reader.readAsDataURL(selectedFile); // Read the file as a data URL
     }
   };
 
