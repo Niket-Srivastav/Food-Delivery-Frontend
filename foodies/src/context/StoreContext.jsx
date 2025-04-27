@@ -47,7 +47,8 @@ export const StoreProvider = (props) => {
     quantities,
     increaseQuantity,
     decreaseQuantity,
-    removeItem
+    removeItem,
+    setQuantities
   };
 
   return (

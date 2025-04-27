@@ -1,10 +1,11 @@
 import React, { useContext } from 'react'
 import './Menubar.css'
 import { assests } from '../../assets/assets';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import { StoreContext } from '../../context/StoreContext';
 
 const Menubar = () => {
+  const navigate = useNavigate();
   const {foodList,quantities} = useContext(StoreContext);
   const cartItems = foodList.filter((food) => quantities[food.id] > 0);
   return (
@@ -33,8 +34,8 @@ const Menubar = () => {
                 <img src={assests.cart} alt="" height={40} width={40}  className='position-relative' />
                 <span className='position-absolute top-90 translate-middle badge rounded-pill bg-warning'>{cartItems.length}</span>
               </Link>
-            <button className='btn btn-outline-primary'>Login</button> 
-            <button className='btn btn-outline-success'>Register</button>
+            <button className='btn btn-outline-primary' onClick={() => navigate("/login")}>Login</button> 
+            <button className='btn btn-outline-success' onClick={() => navigate("/register")}>Register</button>
           </div>
 
 

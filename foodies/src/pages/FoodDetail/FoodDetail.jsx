@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchFoodDetail } from '../../service/FoodService.js';
 import { toast } from 'react-toastify'; // Import toast
+import { StoreContext } from '../../context/StoreContext';
+import { useNavigate } from 'react-router-dom';
 
 const FoodDetail = () => {
   const params = useParams();
+  const {increaseQuantity} = useContext(StoreContext);
   const [data, setData] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     const loadFoodDetail = async () => {
@@ -13,11 +17,17 @@ const FoodDetail = () => {
         const responseData = await fetchFoodDetail(params.id);
         setData(responseData);
       } catch (error) {
-        toast.error("Error displaying food detail"); // Display error toast
+        toast.error("Error displaying food detail"); 
       }
     };
     loadFoodDetail();
   }, [params.id]);
+
+
+const addToCart = () => {
+    increaseQuantity(data.id);
+    navigate('/cart');
+  }
 
   return (
     <section className="py-5">
@@ -42,6 +52,7 @@ const FoodDetail = () => {
               <button
                 className="btn btn-outline-dark flex-shrink-0"
                 type="button"
+                onClick={() => addToCart()}
               >
                 <i className="bi-cart-fill me-1"></i>
                 Add to cart

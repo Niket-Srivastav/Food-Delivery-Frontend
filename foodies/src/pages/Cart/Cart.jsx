@@ -1,19 +1,15 @@
-import React, {useContext} from 'react'
+import React, { useContext } from 'react'
 import './Cart.css'
 import { StoreContext } from '../../context/StoreContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { calculateCartTotal } from '../../util/CartUtils';
 
 const Cart = () => {
+    const navigate = useNavigate();
     const {foodList, quantities, increaseQuantity, decreaseQuantity,removeItem} = useContext(StoreContext);
     const cartItems = foodList.filter((food) => quantities[food.id] > 0);
-    const subTotal = cartItems.reduce((total, food) => {
-        return total + food.price * quantities[food.id];
-    }, 0);
 
-    const shipping = subTotal > 0 ? 10 : 0;
-    const tax = subTotal > 0 ? subTotal * 0.1 : 0;
-    const total = subTotal + shipping + tax;
-
+    const {subTotal, shipping, tax, total } =calculateCartTotal(cartItems, quantities);
   return (
 
 <div className="container py-5">
@@ -44,7 +40,7 @@ const Cart = () => {
                                 </div>
                             </div>
                             <div className="col-md-2 text-end">
-                                <p className="fw-bold">{food.price *  quantities[food.id]}</p>
+                                <p className="fw-bold">₹{food.price *  quantities[food.id]}</p>
                                 
                                 <button className="btn btn-sm btn-outline-danger" onClick={() => removeItem(food.id)}>
                                     <i className="bi bi-trash"></i>
@@ -69,22 +65,22 @@ const Cart = () => {
                     <h5 className="card-title mb-4">Order Summary</h5>
                     <div className="d-flex justify-content-between mb-3">
                         <span>Subtotal</span>
-                        <span>{subTotal}</span>
+                        <span>₹{subTotal}</span>
                     </div>
                     <div className="d-flex justify-content-between mb-3">
                         <span>Shipping</span>
-                        <span>{shipping}</span>
+                        <span>₹{shipping}</span>
                     </div>
                     <div className="d-flex justify-content-between mb-3">
                         <span>Tax</span>
-                        <span>{tax}</span>
+                        <span>₹{tax}</span>
                     </div>
                     <hr/>
                     <div className="d-flex justify-content-between mb-4">
                         <strong>Total</strong>
-                        <strong>{total}</strong>
+                        <strong>₹{total}</strong>
                     </div>
-                    <button className="btn btn-primary w-100" disabled = {cartItems.length === 0 }>Proceed to Checkout</button>
+                    <button className="btn btn-primary w-100" disabled = {cartItems.length === 0 } onClick={() => navigate("/order")}>Proceed to Checkout</button>
                 </div>
             </div>
 
